@@ -20,7 +20,7 @@ for index, row in df.iterrows():
     my_champion = row['championName']   #챔피언 이름
     match_id = row['matchId']           #해당 챔피언이 치룬 경기
     win = row['win']                    #이겼는지?
-    items = [row['item1'], row['item2'], row['item3'], row['item4'], row['item5'], row['item6']]    #해당 챔피언이 간 아이템(완성템만 취급)
+    items = [row['item0'], row['item1'], row['item2'], row['item3'], row['item4'], row['item5'], row['item6']]    #해당 챔피언이 간 아이템(완성템만 취급)
 
     # 적 챔피언 찾기
     enemy_champions = df[(df['matchId'] == match_id) & (df['win'] != win)]['championName'].tolist()
@@ -48,3 +48,4 @@ for index, row in df.iterrows():
 # 결과 데이터프레임을 csv로 저장
 result_file_path = os.path.join(script_dir, 'result.csv')
 result_df.to_csv(result_file_path, index=False)
+print("변환 완료")
