@@ -46,4 +46,5 @@ for index, row in df.iterrows():
         result_df = pd.concat([result_df, pd.DataFrame([result_row])], ignore_index=True)
 
 # 결과 데이터프레임을 csv로 저장
-result_df.to_csv('https://raw.githubusercontent.com/bacsal/AI_project/main/AITest/result.csv?token=GHSAT0AAAAAACLPVTFAKUHBPMLCGO7LU5H6ZL5ZITA', index=False)
+result_file_path = os.path.join(script_dir, 'result.csv')
+result_df.to_csv(result_file_path, index=False)
