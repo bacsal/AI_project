@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 # CSV 파일로부터 데이터 불러오기 / 코랩 좌측 파일 모양 - 드라이브 모양 파일 누르고 연결 - 경로 갖고오기
-csv_file_path = "C:/Users/pass0/OneDrive/Desktop/result.csv"
+csv_file_path = "https://raw.githubusercontent.com/bacsal/AI_project/main/AITest/result.csv?token=GHSAT0AAAAAACLPVTFAKUHBPMLCGO7LU5H6ZL5ZITA"
 df = pd.read_csv(csv_file_path)
 
 # 사용자 입력 받기
