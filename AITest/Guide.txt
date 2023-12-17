@@ -1,0 +1,22 @@
+사용법
+1. testData.csv를 미리 준비한다. champion, item0~6, win, matchId 속성이 반드시 있을 것
+
+2. Data_to_Label.py를 실행시켜서 result.csv를 생성한다. 데이터 많을수록 시간 오래 걸림, 변환 완료 메시지 뜰 때까지 기다릴 것
+
+3. ML_Result.py를 실행시킨다. 내가 하는 챔피언, 적이 하는 챔피언을 영어로 적는다. 대소문자 구분 철저히 할 것. (이즈리얼 = Ezreal, 리 신 = LeeSin)
+
+------------------------------
+코드 정리
+
+testData.csv -> 롤api를 통해 모아놓은 데이터. 
+
+Data_to_Lable.py -> testData.csv에 있는 자료를 result.csv로 변환해주는 코드
+
+ML_Result.py -> result.csv에 있는 자료를 통해 머신 러닝시켜서 템트리, 승률 예측하는 코드
+
+result.csv -> 데이터에 있는 챔피언과 적 챔피언을 나누고, 모든 완성템에 대한 구매 여부를 0, 1로 표현하고, 그 판을 이겼는가에 대해서 모아놓은 데이터
+
+item_name_mapping.csv -> 아이템코드에 따라 매핑되는 이름을 구현하기 위한 csv
+
+----------------------------
+이 모든 것들이 같은 파일 내에 있을 것.
