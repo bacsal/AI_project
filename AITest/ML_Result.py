@@ -19,26 +19,26 @@ item_col = item_df['id'].values.astype(str).tolist()
 item_names = item_df.loc[:, "name"].values.tolist()
 # 딕셔너리로 id - names 매핑
 dict_item = {id: name for id, name in zip(item_col, item_names)}
-
 # 사용자 입력 받기
 my_champion = input("내 챔피언 이름을 말해주세요: ")
 enemy_champion = input("적의 챔피언 이름을 말해주세요: ")
 
 # 사용자 입력에 해당하는 데이터 추출
 matching_rows = df[(df['MY_CHAMPION'] == my_champion) & (df['ENEMY_CHAMPION'] == enemy_champion)]
+matching_index = matching_rows.index.tolist()
 
 # 입력한 정보에 대하여 일치 여부 확인
 if matching_rows.empty:
     print("입력한 챔피언 조합이 데이터에 존재하지 않습니다.")
 else:
 
-    #총 승률 계산
-    true_count = df['WIN'].sum()
-    total_win_rate = true_count / len(df)
-
     # 특성과 레이블 추출
-    X = matching_rows[item_col].values
-    y = matching_rows['WIN'].values
+    X = matching_rows[item_col].values  # 템트리 리스트
+    y = matching_rows['WIN'].values     # 이겼는가
+
+    #총 승률 계산
+    true_count = matching_rows['WIN'].sum()
+    total_win_rate = true_count / len(matching_index)
 
     # 퍼셉트론 모델 만들기
     model = tf.keras.models.Sequential()
@@ -53,16 +53,15 @@ else:
     model.fit(X, y, epochs=100)
 
     #모델 예측
-    predictions = model.predict(X)
-    max_win_rate = np.max(predictions) #최대 적합도
-    max_index = np.argmax(predictions) #최대 적합도가 나온 레이블 인덱스
-
+    predictions = model.predict(X)     # 각 템트리에 대한 적합도
+    max_win_rate = np.max(predictions) # 최대 적합도
+    max_index = np.argmax(predictions) # 최대 적합도가 나온 레이블 인덱스
+    
     #예측한 값에 대하여 승률 계산
     result_win_rate = (total_win_rate * max_win_rate).round(4)
 
     #가장 높은 승률에 따른 템트리 나열
-    result_item = [ dict_item[id] for id in item_col if df.at[max_index, str(id)] == 1]
-
+    result_item = [ dict_item[id] for id in item_col if df.at[matching_index[max_index], id] == 1]
     print("* 계산 결과 *")
     print(my_champion, "이(가) ", enemy_champion, "와 겨룰 때 적합한 템트리는 ", result_item, "이고, 이로 인한 승률은 [", f"{result_win_rate * 100:.2f}", "% ] 로 예측됩니다.")
 
