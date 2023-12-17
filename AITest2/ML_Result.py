@@ -17,8 +17,10 @@ item_df = pd.read_csv(item_name_mapping_path, encoding='cp949')
 # 아이템 이름 매핑 CSV 파일로부터 갖고 온 아이템 이름 리스트화
 item_col = item_df['id'].values.astype(str).tolist()
 item_names = item_df.loc[:, "name"].values.tolist()
+
 # 딕셔너리로 id - names 매핑
 dict_item = {id: name for id, name in zip(item_col, item_names)}
+
 # 사용자 입력 받기
 my_champion = input("내 챔피언 이름을 말해주세요: ")
 enemy_champion = input("적의 챔피언 이름을 말해주세요: ")
@@ -26,7 +28,6 @@ enemy_champion = input("적의 챔피언 이름을 말해주세요: ")
 # 사용자 입력에 해당하는 데이터 추출
 matching_rows = df[(df['MY_CHAMPION'] == my_champion) & (df['ENEMY_CHAMPION'] == enemy_champion)]
 matching_index = matching_rows.index.tolist()
-print(matching_index)
 
 # 입력한 정보에 대하여 일치 여부 확인
 if matching_rows.empty:
@@ -34,18 +35,12 @@ if matching_rows.empty:
 else:
 
     # 특성과 레이블 추출
-    X = matching_rows[item_col].values
-    y = matching_rows['WIN'].values
+    X = matching_rows[item_col].values  # 템트리 리스트
+    y = matching_rows['WIN'].values     # 이겼는지?
 
     #총 승률 계산
     true_count = matching_rows['WIN'].sum()
     total_win_rate = true_count / len(matching_index)
-
-    print("true_count = ", true_count)
-    print(total_win_rate)
-
-    print("X = ", X)    # 템트리 리스트
-    print("y = ", y)    # 이겼는가
 
     # 퍼셉트론 모델 만들기
     model = tf.keras.models.Sequential()
