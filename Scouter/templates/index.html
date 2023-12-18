@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>챔피언 선택</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        section {
+            margin: 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* 추가된 스타일 */
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>환영합니다!</h1>
+    </header>
+
+    <section>
+        <h2>챔피언 선택 결과</h2>
+
+        <!-- 나의 챔피언 입력 창 -->
+        <form method="post" action="/">
+            <label for="myChampion">나의 챔피언: </label>
+            <input list="myChampions" id="myChampion" name="myChampion" placeholder="챔피언 이름을 입력하세요" required>
+            <datalist id="myChampions">
+                {% for champion in my_champions %}
+                    <option value="{{ champion }}">
+                {% endfor %}
+            </datalist>
+
+            <br>
+
+            <!-- 상대 챔피언 입력 창 -->
+            <label for="enemyChampion">상대 챔피언: </label>
+            <input list="enemyChampions" id="enemyChampion" name="enemyChampion" placeholder="챔피언 이름을 입력하세요" required>
+            <datalist id="enemyChampions">
+                {% for champion in enemy_champions %}
+                    <option value="{{ champion }}">
+                {% endfor %}
+            </datalist>
+
+            <br>
+
+            <!-- 입력 값 전송 버튼 -->
+            <button type="submit">선택 완료</button>
+        </form>
+
+        <!-- 선택된 챔피언 및 결과 출력 영역 -->
+        <div id="result">
+            {% if result_message %}
+                {{ result_message }}
+            {% endif %}
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 내 웹 페이지</p>
+    </footer>
+
+</body>
+</html>
