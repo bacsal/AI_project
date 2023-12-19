@@ -11,7 +11,6 @@
             margin: 0;
             padding: 0;
         }
-        
 
         header {
             background-color: #333;
@@ -70,14 +69,14 @@
     </header>
 
     <section>
-        <h2>챔피언 선택 결과</h2>
+        <h2>챔피언 선택</h2>
 
         <!-- 나의 챔피언 입력 창 -->
         <form method="post" action="/">
             <label for="myChampion">나의 챔피언: </label>
-            <input list="myChampions" id="myChampion" name="myChampion" placeholder="챔피언 이름을 입력하세요" required>
-            <datalist id="myChampions">
-                {% for champion in my_champions %}
+            <input type="text" id="myChampion" name="myChampion" list="championList" placeholder="챔피언 이름을 입력하세요" required>
+            <datalist id="championList">
+                {% for champion in champions %}
                     <option value="{{ champion }}">
                 {% endfor %}
             </datalist>
@@ -86,12 +85,7 @@
 
             <!-- 상대 챔피언 입력 창 -->
             <label for="enemyChampion">상대 챔피언: </label>
-            <input list="enemyChampions" id="enemyChampion" name="enemyChampion" placeholder="챔피언 이름을 입력하세요" required>
-            <datalist id="enemyChampions">
-                {% for champion in enemy_champions %}
-                    <option value="{{ champion }}">
-                {% endfor %}
-            </datalist>
+            <input type="text" id="enemyChampion" name="enemyChampion" list="championList" placeholder="챔피언 이름을 입력하세요" required>
 
             <br>
 

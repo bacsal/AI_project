@@ -9,3 +9,6 @@ for i in df['MY_CHAMPION']:
     setname.add(i)
 name = pd.DataFrame(setname)
 name.to_csv("name.csv")
+
+data = pd.read_csv('name.csv')
+print(data.head())

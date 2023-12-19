@@ -6,6 +6,8 @@ import numpy as np
 
 app = Flask(__name__)
 
+data = pd.read_csv('name.csv')
+
 def get_prediction_result(my_champion, enemy_champion):
     # 현재 스크립트 파일의 디렉토리 경로 가져오기
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -75,7 +77,7 @@ def index():
         enemy_champion = request.form['enemyChampion']
         result_message = get_prediction_result(my_champion, enemy_champion)
 
-    return render_template('index.html', result_message=result_message)
+    return render_template('index.html', result_message=result_message,champions=data['0'].tolist())
 
 #@app.route('/')
 def tag_index():
